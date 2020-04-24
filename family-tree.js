@@ -17,29 +17,29 @@ class FamilyTree {
   }
 
   findMember(member) {
-    let memberNode;
-    this.children.forEach(function(child) {
-      if (child.value = member) {
-        memberNode = child;
-      }
-    })
-    return memberNode;
+    for (let i = 0; i < this.children.length; i++) {
+      if (this.children[i].value === member) {
+        return this.children[i];
+      }        
+    }
   }
 
   log() {
-    logCalls++
+    logCalls++;
     let tree = `-- ${this.value}\n`;
-      this.children.map(function(child) {
-        for (let i = 0; i < logCalls; i++) {
-          tree += `--`
-        } 
+    if (this.children.length > 0) {
+      this.children.forEach(function(child) {
         if (child.children.length > 0) {
-          tree += `${child.log()}`
+          tree += `--${child.log()}`
           logCalls--
         } else {
-          tree += `-- ${child.value}\n`            
+          for (let i = 0; i < logCalls; i++) {
+            tree += `--`
+          }
+          tree += `-- ${child.value}\n`
         }
-      })          
+      })
+    }
     return tree;
   }
 
